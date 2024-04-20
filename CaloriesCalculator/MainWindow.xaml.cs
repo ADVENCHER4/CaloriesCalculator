@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +20,8 @@ namespace CaloriesCalculator
         public MainWindow()
         {
             InitializeComponent();
+            DBController db = new();
+            Debug.WriteLine(db.GetProductById(1).Name);
         }
     }
 }
