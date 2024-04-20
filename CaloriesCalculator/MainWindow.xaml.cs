@@ -21,7 +21,7 @@ namespace CaloriesCalculator
         {
             InitializeComponent();
             DBController db = new();
-            Debug.WriteLine(db.GetProductById(1).Name);
+            db.UpdateProduct(1, "product", 1, 1, 1, 1);
         }
     }
 }
