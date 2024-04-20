@@ -10,8 +10,10 @@
 
   <ItemGroup>
     <Reference Include="MySql.Data">
-      <HintPath>..\..\..\..\..\Программирование\MySql\MySql.Data.dll</HintPath>
+      <HintPath>..\MySql.Data.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  
 
 </Project>
