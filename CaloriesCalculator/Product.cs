@@ -4,12 +4,12 @@
     {
         public uint Id { get; set; }
         public string Name { get; set; }
-        public double Calories { get; set; }
-        public double Proteins { get; set; }
-        public double Fats { get; set; }
-        public double Carbohydrates { get; set; }
-
-        public Product(uint id, string name, double calories, double proteins, double fats, double carbohydrates)
+        public uint Calories { get; set; }
+        public uint Proteins { get; set; }
+        public uint Fats { get; set; }
+        public uint Carbohydrates { get; set; }
+        public uint Fibers { get; set; }
+        public Product(uint id, string name, uint calories, uint proteins, uint fats, uint carbohydrates, uint fibers)
         {
             Id = id;
             Name = name;
@@ -17,7 +17,8 @@
             Proteins = proteins;
             Fats = fats;
             Carbohydrates = carbohydrates;
+            Fibers = fibers;
         }
-        public Product() { }   
+        public Product() { }
     }
 }
