@@ -24,8 +24,9 @@ namespace CaloriesCalculator
         private float Activity { get; set; } = 0;
         //количесвтво выпитой воды
         //вообще ещё можно будет подключить другие напитки
-        //(кофе энергетики)
+        //(кофе энергетики в которых есть углеводы)
         private float Drink { get; set; } = 0;
+
         //калорий за день
         private float Calories { get; set; } = 0;
         //углеводы
