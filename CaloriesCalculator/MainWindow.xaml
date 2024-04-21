@@ -50,6 +50,7 @@
                 <DataGridTextColumn Header="Proteins" Binding="{Binding Proteins}" Width="*" />
                 <DataGridTextColumn Header="Fats" Binding="{Binding Fats}" Width="*" />
                 <DataGridTextColumn Header="Carbohydrates" Binding="{Binding Carbohydrates}" Width="*" />
+                <DataGridTextColumn Header="Fibers" Binding="{Binding Fibers}" Width="*" />
                 <DataGridTemplateColumn Header="Actions" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

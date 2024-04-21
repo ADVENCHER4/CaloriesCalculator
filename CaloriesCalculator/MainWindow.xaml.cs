@@ -21,28 +21,28 @@ namespace CaloriesCalculator
     {
         List<Product> products = new List<Product>
         {
-            new Product { Id = 1, Name = "Apple", Calories = 52, Proteins = 0.26, Fats = 0.17, Carbohydrates = 13.81 },
-            new Product { Id = 2, Name = "Banana", Calories = 89, Proteins = 1.09, Fats = 0.33, Carbohydrates = 22.84 },
-            new Product { Id = 3, Name = "Orange", Calories = 47, Proteins = 0.94, Fats = 0.12, Carbohydrates = 11.75 }
+            new Product { Id = 1, Name = "Apple", Calories = 52, Proteins = 0, Fats = 1, Carbohydrates = 14, Fibers=1 },
+            new Product { Id = 2, Name = "Banana", Calories = 89, Proteins = 1, Fats =1, Carbohydrates = 13, Fibers = 1},
+            new Product { Id = 3, Name = "Orange", Calories = 47, Proteins = 1, Fats = 1, Carbohydrates = 12, Fibers = 1}
         };
    
         //активность(сколько человек сжёг калорий скажем за бег)
-        public Double Activity { get; set; } = 0;
+        public double Activity { get; set; } = 0;
         //количесвтво выпитой воды
         //вообще ещё можно будет подключить другие напитки
         //(кофе энергетики в которых есть углеводы)
         public Double Drink { get; set; } = 0;
 
         //калорий за день
-        public Double Calories { get; set; } = 0;
+        public uint Calories { get; set; } = 0;
         //углеводы
-        public Double Carbohydrates { get; set; } = 0;
+        public uint Carbohydrates { get; set; } = 0;
         //жиры
-        public Double Fats { get; set; } = 0;
+        public uint Fats { get; set; } = 0;
         //белки
-        public Double Proteins { get; set; } = 0;
+        public uint Proteins { get; set; } = 0;
         //клетчка(волокно)
-        public Double Fibers { get; set; } = 0;
+        public uint Fibers { get; set; } = 0;
 
 
         public MainWindow()
@@ -61,6 +61,7 @@ namespace CaloriesCalculator
                 Carbohydrates += product.Carbohydrates;
                 Fats += product.Fats;
                 Proteins += product.Proteins;
+                Fibers += product.Fibers;
             }
 
         }
