@@ -1,13 +1,24 @@
 ﻿namespace CaloriesCalculator
 {
-    internal class Product(uint id, string name, uint calories, uint proteins, uint fats, uint carbohydrates, uint fibers)
+    internal class Product
     {
-        public uint Id { get; set; } = id;
-        public string Name { get; set; } = name;
-        public uint Calories { get; set; } = calories;
-        public uint Proteins { get; set; } = proteins;
-        public uint Fats { get; set; } = fats;
-        public uint Carbohydrates { get; set; } = carbohydrates;
-        public uint Fibers { get; set; } = fibers;
+
+        public uint Id { get; set; }
+        public string Name { get; set; }
+        public uint Calories { get; set; }
+        public uint Proteins { get; set; }
+        public uint Fats { get; set; }
+        public uint Carbohydrates { get; set; }
+        public uint Fibers { get; set; }
+        public Product(uint id, string name, uint calories, uint proteins, uint fats, uint carbohydrates, uint fibers)
+        {
+            Id = id;
+            Name = name;
+            Calories = calories;
+            Proteins = proteins;
+            Fats = fats;
+            Carbohydrates = carbohydrates;
+            Fibers = fibers;
+        }
     }
 }
