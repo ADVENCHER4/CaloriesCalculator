@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,72 +19,64 @@ namespace CaloriesCalculator
     /// 
     public partial class MainWindow : Window
     {
-        //масса тела
-        private float Weight { get; set; } = 0;
+        List<Product> products = new List<Product>
+        {
+            new Product { Id = 1, Name = "Apple", Calories = 52, Proteins = 0.26, Fats = 0.17, Carbohydrates = 13.81 },
+            new Product { Id = 2, Name = "Banana", Calories = 89, Proteins = 1.09, Fats = 0.33, Carbohydrates = 22.84 },
+            new Product { Id = 3, Name = "Orange", Calories = 47, Proteins = 0.94, Fats = 0.12, Carbohydrates = 11.75 }
+        };
+   
         //активность(сколько человек сжёг калорий скажем за бег)
-        private float Activity { get; set; } = 0;
+        public Double Activity { get; set; } = 0;
         //количесвтво выпитой воды
         //вообще ещё можно будет подключить другие напитки
         //(кофе энергетики в которых есть углеводы)
-        private float Drink { get; set; } = 0;
+        public Double Drink { get; set; } = 0;
 
         //калорий за день
-        private float Calories { get; set; } = 0;
+        public Double Calories { get; set; } = 0;
         //углеводы
-        private float Carbs { get; set; } = 0;
+        public Double Carbohydrates { get; set; } = 0;
         //жиры
-        private float Fats { get; set; } = 0;
+        public Double Fats { get; set; } = 0;
         //белки
-        private float Proteins { get; set; } = 0;
+        public Double Proteins { get; set; } = 0;
         //клетчка(волокно)
-        private float Fibers { get; set; } = 0;
+        public Double Fibers { get; set; } = 0;
 
 
-        private DateTime currentDate = DateTime.Today;
         public MainWindow()
         {
             InitializeComponent();
             UpdatePage();
-
+            DataContext = this;
         }
         private void UpdatePage()
         {
-            //тут мы получаем данные из бд для это дня
-            DateTextBlock.Text = currentDate.ToString("dd.MM");
+            dataGrid.Items.Clear();
+            foreach (var product in products)
+            {
+                dataGrid.Items.Add(product);
+                Calories += product.Calories;
+                Carbohydrates += product.Carbohydrates;
+                Fats += product.Fats;
+                Proteins += product.Proteins;
+            }
+
         }
 
-        private void PrevDay_Click(object sender, RoutedEventArgs e)
-        {
-            currentDate = currentDate.AddDays(-1);
-            UpdatePage();
-        }
-
-        private void NextDay_Click(object sender, RoutedEventArgs e)
-        {
-            currentDate = currentDate.AddDays(1);
-            UpdatePage();
-        }
         private void Eating_Click(object sender, RoutedEventArgs e)
         {
             EatingInputDialog eatingInputDialog = new EatingInputDialog();
-            MessageBox.Show("eat");
+
+            UpdatePage();
         }
         private void Drinking_Сlick(object sender, RoutedEventArgs e)
         {
             DrinkingInputDialog drinkingInput = new DrinkingInputDialog();
             if (drinkingInput.ShowDialog() == true)
             {
-                Drink = drinkingInput.Drink;
-            }
-            MessageBox.Show("drink");
-        }
-
-        private void Weight_Click(object sender, RoutedEventArgs e)
-        {
-            WeightInputDialog weightInput = new WeightInputDialog();
-            if (weightInput.ShowDialog() == true)
-            {
-                Weight = weightInput.Weight;
+                Drink += drinkingInput.Drink;
             }
         }
 
@@ -92,9 +85,17 @@ namespace CaloriesCalculator
             ActivityInputDialog activityInputDialog = new ActivityInputDialog();
             if (activityInputDialog.ShowDialog() == true)
             {
-                Activity = activityInputDialog.Activity;
+                Activity += activityInputDialog.Activity;
             }
-            MessageBox.Show("activity");
+        }
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGrid.SelectedItem != null)
+            {
+                Product selectedProduct = (Product)dataGrid.SelectedItem;
+                products.Remove(selectedProduct);
+                dataGrid.Items.Remove(selectedProduct);
+            }
         }
     }
 }
