@@ -1,14 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CaloriesCalculator
+﻿namespace CaloriesCalculator
 {
     internal class Calculator
     {
         // тут будет вся логика типо рассчета и т.д.
-        private List<Product> _products = new();
+        public Dictionary<string, uint> Calculate(List<Product> products)
+        {
+            var calculations = new Dictionary<string, uint>()
+            {
+                {"Calories", 0 },
+                {"Proteins", 0 },
+                {"Fats", 0 },
+                {"Carbohydrates", 0 },
+                {"Fibers", 0 },
+            };
+            foreach (var product in products)
+            {
+                calculations["Calorites"] += product.Calories;
+                calculations["Proteins"] += product.Proteins; 
+                calculations["Fats"] += product.Fats; 
+                calculations["Carbohydrates"] += product.Carbohydrates;
+                calculations["Fibers"] += product.Fibers;
+            }
+            return calculations;
+        }
     }
 }
