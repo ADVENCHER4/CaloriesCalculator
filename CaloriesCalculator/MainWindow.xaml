@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CaloriesCalculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="400">
+        Title="MainWindow" Height="700" Width="500">
     <Grid>
 
         <!--таблица для кнопок, с помощью которых мы вводим данные-->
@@ -44,14 +44,14 @@
 
         <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" Margin="10,100,10,0" VerticalAlignment="Top" CanUserAddRows="True" CanUserDeleteRows="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" Width="*" />
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
-                <DataGridTextColumn Header="Calories" Binding="{Binding Calories}" Width="*" />
-                <DataGridTextColumn Header="Proteins" Binding="{Binding Proteins}" Width="*" />
-                <DataGridTextColumn Header="Fats" Binding="{Binding Fats}" Width="*" />
-                <DataGridTextColumn Header="Carbohydrates" Binding="{Binding Carbohydrates}" Width="*" />
-                <DataGridTextColumn Header="Fibers" Binding="{Binding Fibers}" Width="*" />
-                <DataGridTemplateColumn Header="Actions" Width="*">
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" Width="auto" />
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*" />
+                <DataGridTextColumn Header="Калории" Binding="{Binding Calories}"  Width="auto" />
+                <DataGridTextColumn Header="Белки" Binding="{Binding Proteins}" Width="auto" />
+                <DataGridTextColumn Header="Жиры" Binding="{Binding Fats}" Width="*" />
+                <DataGridTextColumn Header="Углеводы" Binding="{Binding Carbohydrates}" Width="*" />
+                <DataGridTextColumn Header="Клетчатка" Binding="{Binding Fibers}" Width="*" />
+                <DataGridTemplateColumn Header="Actions" Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Content="Delete" Click="DeleteButton_Click"/>
@@ -60,44 +60,14 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-
-        <StackPanel Margin="12,549,8,0" VerticalAlignment="Top">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="Calories: "/>
-                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"  Text="{Binding Calories}" TextAlignment="Left"/>
-
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Drink: "/>
-                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Text="{Binding Drink}" TextAlignment="Left"/>
-                <TextBlock Grid.Row="1" Grid.Column="2" Text="Activity: "/>
-                <TextBlock Grid.Row="1" Grid.Column="3"  HorizontalAlignment="Center" Text="{Binding Activity}" TextAlignment="Left"/>
-
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="Carbs: "/>
-                <TextBlock Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Center" Text="{Binding Carbohydrates}" />
-                <TextBlock Grid.Row="2" Grid.Column="2" Text="Fats: "/>
-                <TextBlock Grid.Row="2" Grid.Column="3"  HorizontalAlignment="Center" Text="{Binding Fats}" />
-
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="Proteins: "/>
-                <TextBlock Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Center" Text="{Binding Proteins}" />
-                <TextBlock Grid.Row="3" Grid.Column="2" Text="Fibers: "/>
-                <TextBlock Grid.Row="3" Grid.Column="3"  HorizontalAlignment="Center" Text="{Binding Fibers}" />
-            </Grid>
+        <StackPanel Margin="10" VerticalAlignment="Bottom">
+            <TextBlock Text="{Binding Activity, StringFormat='Activity: {0}'}"/>
+            <TextBlock Text="{Binding Drink, StringFormat='Drink: {0}'}"/>
+            <TextBlock Text="{Binding Calories, StringFormat='Calories: {0}'}"/>
+            <TextBlock Text="{Binding Carbohydrates, StringFormat='Carbohydrates: {0}'}"/>
+            <TextBlock Text="{Binding Fats, StringFormat='Fats: {0}'}"/>
+            <TextBlock Text="{Binding Proteins, StringFormat='Proteins: {0}'}"/>
+            <TextBlock Text="{Binding Fibers, StringFormat='Fibers: {0}'}"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -1,5 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,59 +19,99 @@ namespace CaloriesCalculator
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        List<Product> products = new List<Product>
+        MainController controller;
+        private double activity = 0;
+        public double Activity
         {
-            new Product { Id = 1, Name = "Apple", Calories = 52, Proteins = 0, Fats = 1, Carbohydrates = 14, Fibers=1 },
-            new Product { Id = 2, Name = "Banana", Calories = 89, Proteins = 1, Fats =1, Carbohydrates = 13, Fibers = 1},
-            new Product { Id = 3, Name = "Orange", Calories = 47, Proteins = 1, Fats = 1, Carbohydrates = 12, Fibers = 1}
-        };
-   
-        //активность(сколько человек сжёг калорий скажем за бег)
-        public double Activity { get; set; } = 0;
-        //количесвтво выпитой воды
-        //вообще ещё можно будет подключить другие напитки
-        //(кофе энергетики в которых есть углеводы)
-        public Double Drink { get; set; } = 0;
+            get { return activity; }
+            set { activity = value; OnPropertyChanged(); }
+        }
 
-        //калорий за день
-        public uint Calories { get; set; } = 0;
-        //углеводы
-        public uint Carbohydrates { get; set; } = 0;
-        //жиры
-        public uint Fats { get; set; } = 0;
-        //белки
-        public uint Proteins { get; set; } = 0;
-        //клетчка(волокно)
-        public uint Fibers { get; set; } = 0;
+        private double drink = 0;
+        public double Drink
+        {
+            get { return drink; }
+            set { drink = value; OnPropertyChanged(); }
+        }
+
+        private uint calories = 0;
+        public uint Calories
+        {
+            get { return calories; }
+            set { calories = value; OnPropertyChanged(); }
+        }
+
+        private uint carbohydrates = 0;
+        public uint Carbohydrates
+        {
+            get { return carbohydrates; }
+            set { carbohydrates = value; OnPropertyChanged(); }
+        }
+
+        private uint fats = 0;
+        public uint Fats
+        {
+            get { return fats; }
+            set { fats = value; OnPropertyChanged(); }
+        }
+
+        private uint proteins = 0;
+        public uint Proteins
+        {
+            get { return proteins; }
+            set { proteins = value; OnPropertyChanged(); }
+        }
+
+        private uint fibers = 0;
+        public uint Fibers
+        {
+            get { return fibers; }
+            set { fibers = value; OnPropertyChanged(); }
+        }
 
 
         public MainWindow()
         {
             InitializeComponent();
-            UpdatePage();
+            controller = new MainController(UpdateSummary);
             DataContext = this;
+            UpdatePage();
         }
+        // INotifyPropertyChanged implementation
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
         private void UpdatePage()
         {
             dataGrid.Items.Clear();
-            foreach (var product in products)
+            controller.Summarize();
+            foreach (var product in controller.GetProducts())
             {
                 dataGrid.Items.Add(product);
-                Calories += product.Calories;
-                Carbohydrates += product.Carbohydrates;
-                Fats += product.Fats;
-                Proteins += product.Proteins;
-                Fibers += product.Fibers;
             }
-
         }
-
+        private void UpdateSummary(uint calories, uint proteins, uint fats, uint carbohydrates, uint fibers)
+        {
+            Calories = calories;
+            Proteins = proteins;
+            Fats = fats;
+            Carbohydrates = carbohydrates;
+            Fibers = fibers;
+        }
         private void Eating_Click(object sender, RoutedEventArgs e)
         {
             EatingInputDialog eatingInputDialog = new EatingInputDialog();
-
+            if (eatingInputDialog.ShowDialog() == true)
+            {
+                uint selectedNumber = eatingInputDialog.SelectedNumber;
+                controller.AddProduct(selectedNumber);
+            }
             UpdatePage();
         }
         private void Drinking_Сlick(object sender, RoutedEventArgs e)
@@ -94,8 +136,9 @@ namespace CaloriesCalculator
             if (dataGrid.SelectedItem != null)
             {
                 Product selectedProduct = (Product)dataGrid.SelectedItem;
-                products.Remove(selectedProduct);
+                controller.RemoveProduct(selectedProduct.Id);
                 dataGrid.Items.Remove(selectedProduct);
+                UpdatePage();
             }
         }
     }

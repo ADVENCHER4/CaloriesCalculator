@@ -13,8 +13,12 @@ namespace CaloriesCalculator
         private List<Product> _products = new();
         private readonly Calculator _calculator = new();
         private readonly DBController _dbController = new();
-
         private event SetSummarize _summarizeEvent;
+
+        public List<Product> GetProducts()
+        {
+            return _products;
+        }
 
         public MainController(SetSummarize setSummarize)
         {
@@ -25,7 +29,7 @@ namespace CaloriesCalculator
             // функция считает сумму
             // надо вызывать после каждого изменения списка(добавление, удаление, изменение)
             var sum = _calculator.Calculate(_products);
-            _summarizeEvent(sum["Calorites"], sum["Proteins"], sum["Fats"], sum["Carbohydrates"], sum["Fibers"]);
+            _summarizeEvent(sum["Calories"], sum["Proteins"], sum["Fats"], sum["Carbohydrates"], sum["Fibers"]);
         }
         public void AddProduct(uint id)
         {

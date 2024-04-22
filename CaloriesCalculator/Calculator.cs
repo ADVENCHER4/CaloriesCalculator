@@ -15,7 +15,7 @@
             };
             foreach (var product in products)
             {
-                calculations["Calorites"] += product.Calories;
+                calculations["Calories"] += product.Calories;
                 calculations["Proteins"] += product.Proteins; 
                 calculations["Fats"] += product.Fats; 
                 calculations["Carbohydrates"] += product.Carbohydrates;
