@@ -1,4 +1,5 @@
-﻿namespace CaloriesCalculator
+﻿//Модель продукта
+namespace CaloriesCalculator
 {
     public class Product
     {

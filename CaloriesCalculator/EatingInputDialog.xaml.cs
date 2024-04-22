@@ -44,6 +44,7 @@ namespace CaloriesCalculator
 
         public void ChooseButton_Click(object sender, RoutedEventArgs e)
         {
+
             Product selectedItem = (Product)dataGrid.SelectedItem;
             SetSelectedNumber(selectedItem.Id);
             DialogResult = true;

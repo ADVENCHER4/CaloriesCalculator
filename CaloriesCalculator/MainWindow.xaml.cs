@@ -21,7 +21,9 @@ namespace CaloriesCalculator
     /// 
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        //главное окно нашего приложения
         MainController controller;
+        //переменные отвечающие за общую сумму за день
         private double activity = 0;
         public double Activity
         {
@@ -86,7 +88,7 @@ namespace CaloriesCalculator
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
+        //Каждый раз когда мы хоть как-то меняем список мы обновляем страницу
         private void UpdatePage()
         {
             dataGrid.Items.Clear();
@@ -106,6 +108,8 @@ namespace CaloriesCalculator
         }
         private void Eating_Click(object sender, RoutedEventArgs e)
         {
+            //Если пользователь наждём на кнопку добавить продукт
+            //откроется диалоговое окно, в котором он может выбрать что ему нужно
             EatingInputDialog eatingInputDialog = new EatingInputDialog();
             if (eatingInputDialog.ShowDialog() == true)
             {
@@ -116,6 +120,7 @@ namespace CaloriesCalculator
         }
         private void Drinking_Сlick(object sender, RoutedEventArgs e)
         {
+            //Откроется диалоговое окно что-бы пользователь ввёл сколько воды он выпил
             DrinkingInputDialog drinkingInput = new DrinkingInputDialog();
             if (drinkingInput.ShowDialog() == true)
             {
@@ -125,6 +130,8 @@ namespace CaloriesCalculator
 
         private void Activity_Click(object sender, RoutedEventArgs e)
         {
+            //Откроется диалоговое окно что-бы пользователь ввёл сколько калорий он сжёг
+            //при физической активности
             ActivityInputDialog activityInputDialog = new ActivityInputDialog();
             if (activityInputDialog.ShowDialog() == true)
             {
@@ -133,6 +140,7 @@ namespace CaloriesCalculator
         }
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+            //удалить продукт из списка съеденных
             if (dataGrid.SelectedItem != null)
             {
                 Product selectedProduct = (Product)dataGrid.SelectedItem;
