@@ -4,7 +4,7 @@ using System.Data;
 
 namespace CaloriesCalculator
 {
-    class DBController
+    public class DBController
     {
         MySqlConnection _connection = new("server=localhost;port=3306;username=root;password=root;database=products");
 

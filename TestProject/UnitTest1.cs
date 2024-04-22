@@ -1,33 +1,32 @@
 using CaloriesCalculator;
-using Newtonsoft.Json.Linq;
-
 
 namespace TestProject
 {
     [TestClass]
     public class UnitTest1
     {
-        List<Product> products = new()
-        {
-            new Product(0, "Product 1", 100, 200, 300, 400, 500),
-            new Product(1, "Product 2", 150, 250, 350, 450, 550),
-            new Product(2, "Product 3", 155, 255, 355, 455, 555),
-        };
         MainController controller;
+        DBController dbController = new();
         [TestCleanup]
-        public void testClean()
+        public void TestClean()
         {
-            controller = null;
+            controller = null;                      // после каждого теста удаляем контроллер
         }
         [TestInitialize]
-        public void testInit()
+        public void TestInit()
         {
-            controller = new(null);
+            controller = new(null);                 // перед каждым тестом созадем новый главный контроллер
         }
 
         [TestMethod]
-        public void TestCalculate()
+        public void TestCalculate()                 // тест правильности расчетов кбжу
         {
+            var products = new List<Product>()
+            {
+                new Product(0, "Product 1", 100, 200, 300, 400, 500),
+                new Product(1, "Product 2", 150, 250, 350, 450, 550),
+                new Product(2, "Product 3", 155, 255, 355, 455, 555),
+            };
             var calculator = new Calculator();
             var expectedResult = new Dictionary<string, uint>()
             {
@@ -44,14 +43,43 @@ namespace TestProject
             }
         }
         [TestMethod]
-        public void TestAddProduct()
+        public void TestGetProduct()                // тест работоспособности получения продукта из бд
         {
-
+            var product = dbController.GetProductById(1);
+            Assert.IsNotNull(product);
         }
         [TestMethod]
-        public void TestRemoveProduct()
+        public void TestUpdateProduct()             // тест работоспособности изменения продутка в бд
         {
-
+            dbController.UpdateProduct(1, "Updated Product", 100, 100, 100, 100, 100);
+            var product = dbController.GetProductById(1);
+            Assert.AreEqual(product.Name, "Updated Product");
+        }
+        [TestMethod]
+        public void TestAddProduct()                // тест работоспособности добавления продукта в список для расчета
+        {
+            var oldCount = controller.GetProducts().Count;
+            controller.CreateProduct("Product 1", 100, 200, 300, 400, 500);
+            controller.AddProduct(8);
+            var newCount = controller.GetProducts().Count;
+            Assert.AreNotEqual(newCount, oldCount);
+        }
+        [TestMethod]
+        public void TestRemoveProduct()             // тест работоспособности удаления продукта из списка для расчета
+        {
+            controller.AddProduct(9);
+            var oldCount = controller.GetProducts().Count;
+            controller.RemoveProduct(9);
+            var newCount = controller.GetProducts().Count;
+            Assert.AreNotEqual(newCount, oldCount);
+        }
+        [TestMethod]
+        public void TestDeleteProduct()             // тест работоспособности удаления продукта из бд
+        {
+            var oldCount = dbController.GetAllProducts().Count;
+            dbController.RemoveProduct(8);
+            var newCount = dbController.GetAllProducts().Count;
+            Assert.AreNotEqual(newCount, oldCount);
         }
     }
 }
