@@ -1,4 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,73 +19,107 @@ namespace CaloriesCalculator
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        //масса тела
-        private float Weight { get; set; } = 0;
-        //активность(сколько человек сжёг калорий скажем за бег)
-        private float Activity { get; set; } = 0;
-        //количесвтво выпитой воды
-        //вообще ещё можно будет подключить другие напитки
-        //(кофе энергетики)
-        private float Drink { get; set; } = 0;
-        //калорий за день
-        private float Calories { get; set; } = 0;
-        //углеводы
-        private float Carbs { get; set; } = 0;
-        //жиры
-        private float Fats { get; set; } = 0;
-        //белки
-        private float Proteins { get; set; } = 0;
-        //клетчка(волокно)
-        private float Fibers { get; set; } = 0;
+        MainController controller;
+        private double activity = 0;
+        public double Activity
+        {
+            get { return activity; }
+            set { activity = value; OnPropertyChanged(); }
+        }
+
+        private double drink = 0;
+        public double Drink
+        {
+            get { return drink; }
+            set { drink = value; OnPropertyChanged(); }
+        }
+
+        private uint calories = 0;
+        public uint Calories
+        {
+            get { return calories; }
+            set { calories = value; OnPropertyChanged(); }
+        }
+
+        private uint carbohydrates = 0;
+        public uint Carbohydrates
+        {
+            get { return carbohydrates; }
+            set { carbohydrates = value; OnPropertyChanged(); }
+        }
+
+        private uint fats = 0;
+        public uint Fats
+        {
+            get { return fats; }
+            set { fats = value; OnPropertyChanged(); }
+        }
+
+        private uint proteins = 0;
+        public uint Proteins
+        {
+            get { return proteins; }
+            set { proteins = value; OnPropertyChanged(); }
+        }
+
+        private uint fibers = 0;
+        public uint Fibers
+        {
+            get { return fibers; }
+            set { fibers = value; OnPropertyChanged(); }
+        }
 
 
-        private DateTime currentDate = DateTime.Today;
         public MainWindow()
         {
             InitializeComponent();
+            controller = new MainController(UpdateSummary);
+            DataContext = this;
             UpdatePage();
-
         }
+        // INotifyPropertyChanged implementation
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
         private void UpdatePage()
         {
-            //тут мы получаем данные из бд для это дня
-            DateTextBlock.Text = currentDate.ToString("dd.MM");
+            dataGrid.Items.Clear();
+            controller.Summarize();
+            foreach (var product in controller.GetProducts())
+            {
+                dataGrid.Items.Add(product);
+            }
         }
-
-        private void PrevDay_Click(object sender, RoutedEventArgs e)
+        private void UpdateSummary(uint calories, uint proteins, uint fats, uint carbohydrates, uint fibers)
         {
-            currentDate = currentDate.AddDays(-1);
-            UpdatePage();
-        }
-
-        private void NextDay_Click(object sender, RoutedEventArgs e)
-        {
-            currentDate = currentDate.AddDays(1);
-            UpdatePage();
+            Calories = calories;
+            Proteins = proteins;
+            Fats = fats;
+            Carbohydrates = carbohydrates;
+            Fibers = fibers;
         }
         private void Eating_Click(object sender, RoutedEventArgs e)
         {
             EatingInputDialog eatingInputDialog = new EatingInputDialog();
-            MessageBox.Show("eat");
+            if (eatingInputDialog.ShowDialog() == true)
+            {
+                uint selectedNumber = eatingInputDialog.SelectedNumber;
+                controller.AddProduct(selectedNumber);
+            }
+            UpdatePage();
         }
         private void Drinking_Сlick(object sender, RoutedEventArgs e)
         {
             DrinkingInputDialog drinkingInput = new DrinkingInputDialog();
             if (drinkingInput.ShowDialog() == true)
             {
-                Drink = drinkingInput.Drink;
-            }
-            MessageBox.Show("drink");
-        }
-
-        private void Weight_Click(object sender, RoutedEventArgs e)
-        {
-            WeightInputDialog weightInput = new WeightInputDialog();
-            if (weightInput.ShowDialog() == true)
-            {
-                Weight = weightInput.Weight;
+                Drink += drinkingInput.Drink;
             }
         }
 
@@ -91,9 +128,18 @@ namespace CaloriesCalculator
             ActivityInputDialog activityInputDialog = new ActivityInputDialog();
             if (activityInputDialog.ShowDialog() == true)
             {
-                Activity = activityInputDialog.Activity;
+                Activity += activityInputDialog.Activity;
             }
-            MessageBox.Show("activity");
+        }
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGrid.SelectedItem != null)
+            {
+                Product selectedProduct = (Product)dataGrid.SelectedItem;
+                controller.RemoveProduct(selectedProduct.Id);
+                dataGrid.Items.Remove(selectedProduct);
+                UpdatePage();
+            }
         }
     }
 }

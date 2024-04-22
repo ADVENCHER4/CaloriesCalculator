@@ -21,6 +21,11 @@ namespace CaloriesCalculator
     {
         //в этом классе пользователь вводит то сколько калорий он сжёг
         public int Activity {  get; set; }
+
+        private void SetActivity(int activity)
+        {
+            Activity = activity;
+        }
         public ActivityInputDialog()
         {
             InitializeComponent();
@@ -29,7 +34,7 @@ namespace CaloriesCalculator
         {
             if (int.TryParse(txtActivity.Text, out int activity) && activity >= 0)
             {
-                Activity = activity;
+                SetActivity(activity);
                 DialogResult = true;
                 Close();
             }

@@ -1,0 +1,34 @@
+[33mcommit 7564f6fb5edf09237069b4c8f4ec9a8212bdf5b2[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mAdvencher[m[33m)[m
+Merge: b5142c7 0d494af
+Author: ADVENCHER4 <komendantov.adrv@gmail.com>
+Date:   Sun Apr 21 18:56:10 2024 +0300
+
+    Merge branch 'Advencher' of https://github.com/ADVENCHER4/CaloriesCalculator into Advencher
+    
+    # Conflicts:
+    #       CaloriesCalculator/CaloriesCalculator.csproj
+    #       CaloriesCalculator/MainWindow.xaml.cs
+
+[33mcommit b5142c70d46abfb5d4eafbb8edd15820003826f8[m
+Author: ADVENCHER4 <komendantov.adrv@gmail.com>
+Date:   Sun Apr 21 18:54:47 2024 +0300
+
+    Remove date
+
+[33mcommit e2da65f9ee656b0d78f21b8f3fea36952ebb3279[m
+Author: Maxim Kandrushin <maxim123.321.2014.2@yandex.ru>
+Date:   Sun Apr 21 16:02:36 2024 +0300
+
+    Create simple interface
+
+[33mcommit 0d494af6aa1b24bc27ac376bda59892a96441ecb[m
+Author: ADVENCHER4 <komendantov.adrv@gmail.com>
+Date:   Sun Apr 21 00:17:19 2024 +0300
+
+    Implement add, get, getAll, update and remove functions
+
+[33mcommit 21213320c350636e3eed4b66789fba47a387c4e6[m
+Author: ADVENCHER4 <komendantov.adrv@gmail.com>
+Date:   Sat Apr 20 23:15:13 2024 +0300
+
+    Add add function to DBController

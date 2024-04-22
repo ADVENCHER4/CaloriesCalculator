@@ -7,6 +7,47 @@
         mc:Ignorable="d"
         Title="EatingInputDialog" Height="450" Width="800">
     <Grid>
-        
+        <Grid Margin="10,28,10,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Панелька для приема пищи -->
+            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="5">
+                <StackPanel Margin="5">
+                    <Button Content="Добавить продукт" Click="Add_Click"/>
+                </StackPanel>
+            </Border>
+
+        </Grid>
+
+        <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" Margin="10,100,10,0" VerticalAlignment="Top" CanUserAddRows="True" CanUserDeleteRows="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" Width="auto" />
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*" />
+                <DataGridTextColumn Header="Калории" Binding="{Binding Calories}"  Width="*" />
+                <DataGridTextColumn Header="Белки" Binding="{Binding Proteins}" Width="*" />
+                <DataGridTextColumn Header="Жиры" Binding="{Binding Fats}" Width="*" />
+                <DataGridTextColumn Header="Углеводы" Binding="{Binding Carbohydrates}" Width="auto" />
+                <DataGridTextColumn Header="Клетчатка" Binding="{Binding Fibers}" Width="auto" />
+                <DataGridTemplateColumn Header="Actions" Width="auto">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate >
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Добавить" Click="ChooseButton_Click"/>
+                                <Button Content="Удалить" Click="DeleteButton_Click"/>
+                                <Button Content="Изменить" Click="EditButton_Click"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

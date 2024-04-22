@@ -1,0 +1,44 @@
+﻿<Window x:Class="CaloriesCalculator.EditDBProductDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CaloriesCalculator"
+        mc:Ignorable="d"
+        Title="EditDBProductDialog" Height="399" Width="500">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Название:"/>
+        <TextBox x:Name="NameTextBox" Grid.Row="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBlock Grid.Row="2" Text="Калории:"/>
+        <TextBox x:Name="CaloriesTextBox" Grid.Row="3" Text="{Binding Calories, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBlock Grid.Row="4" Text="Белки:"/>
+        <TextBox x:Name="ProteinsTextBox" Grid.Row="5" Text="{Binding Proteins, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBlock Grid.Row="6" Text="Жиры:"/>
+        <TextBox x:Name="FatsTextBox" Grid.Row="7" Text="{Binding Fats, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBlock Grid.Row="8" Text="Углеводы:"/>
+        <TextBox x:Name="CarbohydratesTextBox" Grid.Row="9" Text="{Binding Carbohydrates, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Grid.Row="10" Text="Клетчатка:"/>
+        <TextBox x:Name="FibersTextBox" Grid.Row="10" Text="{Binding Fibers, UpdateSourceTrigger=PropertyChanged}" Margin="0,20,0,-20"/>
+
+        <Button Content="Сохранить" Click="SaveButton_Click" HorizontalAlignment="Center" Margin="0,45,0,-58" Grid.Row="10" />
+    </Grid>
+</Window>

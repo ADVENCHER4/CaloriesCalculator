@@ -32,6 +32,7 @@ namespace CaloriesCalculator
             CloseConnection();
             return new Product((uint)row["id"], (string)row["name"], (uint)row["calories"], (uint)row["proteins"], (uint)row["fats"], (uint)row["carbohydrates"], (uint)row["fibers"]);
         }
+        //люблю тебя за то что добавил этот метод <3
         public List<Product> GetAllProducts()
         {
             OpenConnection();

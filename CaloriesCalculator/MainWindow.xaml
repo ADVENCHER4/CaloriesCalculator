@@ -5,96 +5,70 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CaloriesCalculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="450">
+        Title="MainWindow" Height="700" Width="500">
     <Grid>
 
-
-        <!--  панель выбора дня -->
-        <Grid Margin="10">
-            <Button Content="←" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,5,0,0" Click="PrevDay_Click" Height="30" Width="30"/>
-            <TextBlock x:Name="DateTextBlock" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="15"/>
-            <Button Content="→" Grid.Column="2" HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="0,5,5,0" Click="NextDay_Click" Height="30" Width="30"/>
-        </Grid>
         <!--таблица для кнопок, с помощью которых мы вводим данные-->
-        <Grid Margin="10,60,10,0" VerticalAlignment="Top">
+        <Grid Margin="10,28,10,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <!-- Панелька для приема пищи -->
-            <Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="5">
+            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="5">
                 <StackPanel Margin="5">
                     <Button Content="Прием пищи" Click="Eating_Click"/>
                 </StackPanel>
             </Border>
 
             <!-- Панелька для деятельности -->
-            <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Margin="5">
+            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1" Margin="5">
                 <StackPanel Margin="5">
                     <Button Content="Активность" Click="Activity_Click"/>
                 </StackPanel>
             </Border>
 
             <!-- Панелька для питьевого режима -->
-            <Border Grid.Row="1" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="5">
+            <Border Grid.Column="2" BorderBrush="Black" BorderThickness="1" Margin="5">
                 <StackPanel Margin="5">
                     <Button Content="Питьевой режим" Click="Drinking_Сlick"/>
                 </StackPanel>
             </Border>
 
-            <!-- Панелька для веса -->
-            <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Margin="5">
-                <StackPanel Margin="5">
-                    <Button Content="Вес" Click="Weight_Click"/>
-                </StackPanel>
-            </Border>
         </Grid>
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="10" VerticalAlignment="Center">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="Weight: "/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ElementName=Weight}" TextAlignment="Left"/>
-                <TextBlock Grid.Row="0" Grid.Column="2" Text="Activity: "/>
-                <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding ElementName=Activity}" TextAlignment="Left"/>
-
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Drink: "/>
-                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=Drink}" TextAlignment="Left"/>
-                <TextBlock Grid.Row="1" Grid.Column="2" Text="Calories: "/>
-                <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding ElementName=Calories}" TextAlignment="Left"/>
-
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="Carbs: "/>
-                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ElementName=Carbs}" TextAlignment="Left"/>
-                <TextBlock Grid.Row="2" Grid.Column="2" Text="Fats: "/>
-                <TextBlock Grid.Row="2" Grid.Column="3" Text="{Binding ElementName=Fats}" TextAlignment="Left"/>
-
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="Proteins: "/>
-                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding ElementName=Proteins}" TextAlignment="Left"/>
-                <TextBlock Grid.Row="3" Grid.Column="2" Text="Fibers: "/>
-                <TextBlock Grid.Row="3" Grid.Column="3" Text="{Binding ElementName=Fibers}" TextAlignment="Left"/>
-            </Grid>
+        <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" Margin="10,100,10,0" VerticalAlignment="Top" CanUserAddRows="True" CanUserDeleteRows="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" Width="auto" />
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*" />
+                <DataGridTextColumn Header="Калории" Binding="{Binding Calories}"  Width="auto" />
+                <DataGridTextColumn Header="Белки" Binding="{Binding Proteins}" Width="auto" />
+                <DataGridTextColumn Header="Жиры" Binding="{Binding Fats}" Width="*" />
+                <DataGridTextColumn Header="Углеводы" Binding="{Binding Carbohydrates}" Width="*" />
+                <DataGridTextColumn Header="Клетчатка" Binding="{Binding Fibers}" Width="*" />
+                <DataGridTemplateColumn Header="Actions" Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Delete" Click="DeleteButton_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Margin="10" VerticalAlignment="Bottom">
+            <TextBlock Text="{Binding Activity, StringFormat='Activity: {0}'}"/>
+            <TextBlock Text="{Binding Drink, StringFormat='Drink: {0}'}"/>
+            <TextBlock Text="{Binding Calories, StringFormat='Calories: {0}'}"/>
+            <TextBlock Text="{Binding Carbohydrates, StringFormat='Carbohydrates: {0}'}"/>
+            <TextBlock Text="{Binding Fats, StringFormat='Fats: {0}'}"/>
+            <TextBlock Text="{Binding Proteins, StringFormat='Proteins: {0}'}"/>
+            <TextBlock Text="{Binding Fibers, StringFormat='Fibers: {0}'}"/>
         </StackPanel>
-
     </Grid>
 </Window>
 

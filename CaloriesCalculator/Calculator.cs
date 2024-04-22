@@ -23,10 +23,6 @@ namespace CaloriesCalculator
                 calculations["Carbohydrates"] += product.Carbohydrates;
                 calculations["Fibers"] += product.Fibers;
             }
-            foreach (var item in calculations)
-            {
-                Debug.WriteLine(item.Key + " " + item.Value);
-            }
             return calculations;
         }
     }
