@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CaloriesCalculator
 {
-    internal class MainController
+    public class MainController
     {
         public delegate void SetSummarize(uint calories, uint proteins, uint fats, uint carbohydrates, uint fibers);
         // здесь будем обновлять данные, вызывать подсчет и т.д.

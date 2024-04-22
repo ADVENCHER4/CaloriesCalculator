@@ -1,6 +1,8 @@
-﻿namespace CaloriesCalculator
+﻿using System.Diagnostics;
+
+namespace CaloriesCalculator
 {
-    internal class Calculator
+    public class Calculator
     {
         // тут будет вся логика типо рассчета и т.д.
         public Dictionary<string, uint> Calculate(List<Product> products)
@@ -15,11 +17,15 @@
             };
             foreach (var product in products)
             {
-                calculations["Calorites"] += product.Calories;
+                calculations["Calories"] += product.Calories;
                 calculations["Proteins"] += product.Proteins; 
                 calculations["Fats"] += product.Fats; 
                 calculations["Carbohydrates"] += product.Carbohydrates;
                 calculations["Fibers"] += product.Fibers;
+            }
+            foreach (var item in calculations)
+            {
+                Debug.WriteLine(item.Key + " " + item.Value);
             }
             return calculations;
         }

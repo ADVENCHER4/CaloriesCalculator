@@ -1,6 +1,6 @@
 ﻿namespace CaloriesCalculator
 {
-    internal class Product
+    public class Product
     {
 
         public uint Id { get; set; }
